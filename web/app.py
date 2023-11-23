@@ -12,6 +12,8 @@ def process_video(uploaded_video):
     vf = cv2.VideoCapture(tfile.name)
 
     stframe = st.empty()
+    model = torch.hub.load('ultralytics/yolov5', 'custom', path='./models/best.pt')
+    model.conf = 0.6
 
     while vf.isOpened():
         ret, frame = vf.read()
@@ -22,7 +24,6 @@ def process_video(uploaded_video):
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         pilimg = Image.fromarray(frame)
 
-        model = torch.hub.load('ultralytics/yolov5', 'custom', path='./models/best.pt')
         results = model(pilimg, size=640)
 
         # rendering the processed frame
