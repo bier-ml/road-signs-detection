@@ -5,12 +5,13 @@ def run_server():
     st.set_page_config(layout="wide")
 
     st.title("Road signs detection app")
-    st.subheader("Upload video")
+    video_file = st.file_uploader('Upload a video', type=['mp4', 'avi'])
 
-    col1, col2, col3 = st.columns(3, gap='large')
+    if video_file:
+        run_button = st.button('Run detection')
 
-    with col1:
-        text_input = st.text_input("Enter video url:", placeholder='url')
+        if run_button:
+            st.text('Processing...')
 
 
 if __name__ == "__main__":
